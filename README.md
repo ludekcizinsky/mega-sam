@@ -49,7 +49,7 @@ Anaconda.
 
 ### Running MegaSaM on Sintel
 
-1.  Download and unzip [Sintel data]([https://drive.google.com/file/d/1J0BGtdmFlkC679C6gA9NHgWRSmeeASdU/view?usp=sharing](https://drive.google.com/file/d/1bSGX7JY73M3HzMS6xsJizRkPH-NQLPOf/view?usp=sharing))
+1.  Download and unzip [Sintel data](https://drive.google.com/file/d/1bSGX7JY73M3HzMS6xsJizRkPH-NQLPOf/view?usp=sharing)
 
 2.  Precompute mono-depth (Please modify img-path in the script):
     `./mono_depth_scripts/run_mono-depth_sintel.sh`
@@ -68,7 +68,7 @@ Anaconda.
 
 ### Running MegaSaM on DyCheck
 
-1.  Download [Dycheck data]([https://drive.google.com/drive/folders/1jmurlt73uIosTOnvy05VWzg0zkvEak9M?usp=sharing](https://drive.google.com/drive/folders/1BHzjHo58nGAMvKMo_AS0_SwU2tJagXXx?usp=sharing))
+1.  Download [Dycheck data](https://drive.google.com/drive/folders/1BHzjHo58nGAMvKMo_AS0_SwU2tJagXXx?usp=sharing)
 
 2.  Precompute mono-depth (Please modify img-path in the script):
     `./mono_depth_scripts/run_mono-depth_dycheck.sh`
@@ -88,7 +88,7 @@ Anaconda.
 
 ### Running MegaSaM on in-the-wild video, for example from DAVIS videos
 
-1.  Download example [DAVIS data]([https://drive.google.com/file/d/1mis066CUvfBtDZWZ9-ONDqCdno5nmYLe/view?usp=sharing](https://drive.google.com/file/d/1y5XItnTTgZJqRSOpG48v1FuHvPgaAvw8/view?usp=sharing))
+1.  Download example [DAVIS data](https://drive.google.com/file/d/1y5XItnTTgZJqRSOpG48v1FuHvPgaAvw8/view?usp=sharing)
 
 2.  Precompute mono-depth (Please modify img-path in the script):
     `./mono_depth_scripts/run_mono-depth_demo.sh`
