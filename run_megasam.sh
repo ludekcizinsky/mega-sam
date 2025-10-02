@@ -6,7 +6,7 @@ TORCH_HOME="/scratch/izar/cizinsky/.cache"
 HF_HOME="/scratch/izar/cizinsky/.cache"
 
 # Set scene name and directories (data dir is where you have your frames, our dir is where ALL outputs will go)
-scene_name="football_high_res"
+scene_name="modric_vs_ribberi"
 DATA_DIR=/scratch/izar/cizinsky/multiply-output/preprocessing/data/$scene_name/image
 OUT_DIR=/scratch/izar/cizinsky/multiply-output/preprocessing/data/$scene_name/megasam
 mkdir -p $OUT_DIR
