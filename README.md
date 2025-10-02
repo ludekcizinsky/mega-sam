@@ -59,7 +59,13 @@ Anaconda.
     export CUDA_HOME=$(dirname $(dirname $(which nvcc)))
     ``` 
     before running the above compilation command. I have only verified the cluster method.
-    
+
+4. Install the viser package for visualizing the results (assuming you are in the root of the cloned repo):
+
+    ```bash
+    pip install plotly
+    pip install -e viser
+    ``` 
 
 ### Downloading pretrained checkpoints
 
