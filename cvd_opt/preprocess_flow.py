@@ -88,6 +88,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--mixed_precision', action='store_true', help='use mixed precision'
   )
+  parser.add_argument("--outdir", default="outputs/")
   args = parser.parse_args()
 
   model = torch.nn.DataParallel(RAFT(args))
@@ -203,7 +204,8 @@ if __name__ == '__main__':
   iijj = np.stack((ii, jj), axis=0)
   flows_high = np.array(flows_arr_up).transpose(0, 3, 1, 2)
   flow_masks_high = np.array(masks_arr_up)[:, None, ...]
-  Path('./cache_flow/%s' % scene_name).mkdir(parents=True, exist_ok=True)
-  np.save('./cache_flow/%s/flows.npy' % scene_name, np.float16(flows_high))
-  np.save('./cache_flow/%s/flows_masks.npy' % scene_name, flow_masks_high)
-  np.save('./cache_flow/%s/ii-jj.npy' % scene_name, iijj)
+  out_dir = Path(args.outdir) / "raft_flow"
+  out_dir.mkdir(parents=True, exist_ok=True)
+  np.save(out_dir / 'flows.npy', np.float16(flows_high))
+  np.save(out_dir / 'flows_masks.npy', flow_masks_high)
+  np.save(out_dir / 'ii-jj.npy', iijj)

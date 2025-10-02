@@ -14,27 +14,28 @@
 # limitations under the License.
 # ==============================================================================
 
+source /home/cizinsky/miniconda3/etc/profile.d/conda.sh
+module load gcc cuda/11.8 ffmpeg
+conda activate mega_sam
 
-evalset=(
-  swing
-  breakdance-flare
-)
+TORCH_HOME="/scratch/izar/cizinsky/.cache"
+HF_HOME="/scratch/izar/cizinsky/.cache"
 
-DATA_PATH=/home/zhengqili/filestore/DAVIS/DAVIS/JPEGImages/480p
-
+scene_name="football_high_res"
+DATA_DIR=/scratch/izar/cizinsky/multiply-output/preprocessing/data/$scene_name/image
+RAFT_CKPT=/scratch/izar/cizinsky/pretrained/raft-things.pth
+OUT_DIR=/scratch/izar/cizinsky/multiply-output/preprocessing/data/$scene_name/megasam/
 
 # Run Raft Optical Flows
-for seq in ${evalset[@]}; do
-  CUDA_VISIBLE_DEVICES=0 python cvd_opt/preprocess_flow.py \
-  --datapath=$DATA_PATH/$seq \
-  --model=cvd_opt/raft-things.pth \
-  --scene_name $seq --mixed_precision
-done
+CUDA_VISIBLE_DEVICES=0 python cvd_opt/preprocess_flow.py \
+--datapath=$DATA_DIR \
+--model=$RAFT_CKPT \
+--outdir $OUT_DIR \
+--scene_name $scene_name --mixed_precision
 
 # Run CVD optmization
-for seq in ${evalset[@]}; do
-  CUDA_VISIBLE_DEVICES=0 python cvd_opt/cvd_opt.py \
-  --scene_name $seq \
-  --w_grad 2.0 --w_normal 5.0
-done
+CUDA_VISIBLE_DEVICES=0 python cvd_opt/cvd_opt.py \
+--scene_name $scene_name \
+--output_dir $OUT_DIR \
+--w_grad 2.0 --w_normal 5.0 
 

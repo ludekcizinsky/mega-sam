@@ -14,28 +14,28 @@
 # limitations under the License.
 # ==============================================================================
 
+TORCH_HOME="/scratch/izar/cizinsky/.cache"
+HF_HOME="/scratch/izar/cizinsky/.cache"
 
-evalset=(
-  swing
-  breakdance-flare
-)
+scene_name="football_high_res"
+DATA_DIR=/scratch/izar/cizinsky/multiply-output/preprocessing/data/$scene_name/image
+OUT_DIR=/scratch/izar/cizinsky/multiply-output/preprocessing/data/$scene_name/megasam
+mkdir -p $OUT_DIR
 
-DATA_DIR=/home/zhengqili/filestore/DAVIS/DAVIS/JPEGImages/480p
+source /home/cizinsky/miniconda3/etc/profile.d/conda.sh
+module load gcc cuda/11.8 ffmpeg
+conda activate mega_sam
 
 # Run DepthAnything
-for seq in ${evalset[@]}; do
-  CUDA_VISIBLE_DEVICES=0 python Depth-Anything/run_videos.py --encoder vitl \
-  --load-from Depth-Anything/checkpoints/depth_anything_vitl14.pth \
-  --img-path $DATA_DIR/$seq \
-  --outdir Depth-Anything/video_visualization/$seq
-done
+CUDA_VISIBLE_DEVICES=0 python Depth-Anything/run_videos.py --encoder vitl \
+--load-from /scratch/izar/cizinsky/pretrained/depth_anything_vitl14.pth \
+--img-path $DATA_DIR \
+--outdir $OUT_DIR/depth_anything
 
 # Run UniDepth
 export PYTHONPATH="${PYTHONPATH}:$(pwd)/UniDepth"
 
-for seq in ${evalset[@]}; do
-  CUDA_VISIBLE_DEVICES=0 python UniDepth/scripts/demo_mega-sam.py \
-  --scene-name $seq \
-  --img-path $DATA_DIR/$seq \
-  --outdir UniDepth/outputs
-done
+CUDA_VISIBLE_DEVICES=0 python UniDepth/scripts/demo_mega-sam.py \
+--scene-name $scene_name \
+--img-path $DATA_DIR \
+--outdir $OUT_DIR/unidepth

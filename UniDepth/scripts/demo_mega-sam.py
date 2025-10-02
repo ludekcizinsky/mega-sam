@@ -19,7 +19,7 @@ def demo(model, args):
 
   # for scene_name in scene_names:
   scene_name = args.scene_name
-  outdir_scene = os.path.join(outdir, scene_name)
+  outdir_scene = outdir
   os.makedirs(outdir_scene, exist_ok=True)
   # img_path_list = sorted(glob.glob("/home/zhengqili/filestore/DAVIS/DAVIS/JPEGImages/480p/%s/*.jpg"%scene_name))
   img_path_list = sorted(glob.glob(os.path.join(args.img_path, "*.jpg")))
@@ -53,7 +53,6 @@ def demo(model, args):
         )
     )
     depth = predictions["depth"][0, 0].cpu().numpy()
-    print(fov_)
     fovs.append(fov_)
     # breakpoint()
     np.savez(
